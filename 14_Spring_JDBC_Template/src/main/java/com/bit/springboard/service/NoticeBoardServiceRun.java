@@ -38,8 +38,6 @@ public class NoticeBoardServiceRun {
 //
 //        noticeBoardService.updateNoticeBoard(twoNoticeBoardDto);
 
-        NoticeBoardDto deleteNoticeBoardDto = new NoticeBoardDto();
-
         noticeBoardService.deleteNoticeBoard(2);
     }
 }
