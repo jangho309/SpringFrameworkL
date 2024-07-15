@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!--쿼리문이 Dao 클래스에서 분리되어 온 것이기 때문에 namespace는 관례적으로 Dao 클래스명과 일치시킨다.-->
+<mapper namespace="NoticeBoardDao">
+    <insert id="createNoticeBoard" parameterType="board">
+        INSERT INTO NOTICEBOARD(
+                TITLE
+              , CONTENT
+              , WRITER_ID
+        )
+        VALUES(
+                #{title}
+              , #{content}
+              , #{WRITER_ID}
+        )
+    </insert>
+
+    <select id="getNoticeBoardList" resultType="board">
+        SELECT N.ID
+             , N.TITLE
+             , N.CONTENT
+             , N.WRITER_ID
+             , M.NICKNAME
+             , N.REGDATE
+             , N.MODDATE
+             , N.CNT
+          FROM NOTICEBOARD N
+          JOIN MEMBER M
+            ON N.WRITER_ID = M.ID
+    </select>
+
+    <select id="getNoticeBoard" parameterType="int" resultType="board">
+        SELECT N.ID
+             , N.TITLE
+             , N.CONTENT
+             , N.WRITER_ID
+             , M.NICKNAME
+             , N.REGDATE
+             , N.MODDATE
+             , N.CNT
+          FROM NOTICEBOARD N
+          JOIN MEMBER M
+            ON N.WRITER_ID = M.ID
+         WHERE N.ID = #{id}
+    </select>
+
+    <update id="updateNoticeBoard" parameterType="board">
+        UPDATE NOTICEBOARD
+           SET TITLE = #{title}
+             , CONTENT = #{content}
+             , MODDATE = #{moddate}
+         WHERE ID = #{id}
+    </update>
+
+    <delete id="deleteNoticeBoard" parameterType="int">
+        DELETE FROM NOTICEBOARD
+         WHERE ID = #{id}
+    </delete>
+</mapper>
