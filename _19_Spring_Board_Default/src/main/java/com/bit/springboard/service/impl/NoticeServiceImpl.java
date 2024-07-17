@@ -28,8 +28,8 @@ public class NoticeServiceImpl implements BoardService {
     }
 
     @Override
-    public void delete(int id) {
-        noticeDao.delete(id);
+    public void delete(BoardDto boardDto) {
+        noticeDao.delete(boardDto);
     }
 
     @Override
@@ -41,4 +41,10 @@ public class NoticeServiceImpl implements BoardService {
     public BoardDto getBoard(int id) {
         return noticeDao.getNotice(id);
     }
+
+    @Override
+    public void updateBoardCnt(int id) {
+        noticeDao.updateBoardCnt(id);
+    }
+
 }

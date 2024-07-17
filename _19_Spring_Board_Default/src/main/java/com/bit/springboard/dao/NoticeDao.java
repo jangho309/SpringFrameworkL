@@ -38,10 +38,10 @@ public class NoticeDao {
         return mybatis.selectList("NoticeDao.getNoticeList");
     }
     
-    public void delete(int id) {
+    public void delete(BoardDto boardDto) {
         System.out.println("NoticeDao의 delete 메소드 실행");
 
-        mybatis.delete("NoticeDao.delete", id);
+        mybatis.delete("NoticeDao.delete", boardDto);
 
         System.out.println("NoticeDao의 delete 메소드 실행 종료");
     }
@@ -50,5 +50,14 @@ public class NoticeDao {
         System.out.println("NoticeDao의 getNotice 메소드 실행");
 
         return mybatis.selectOne("NoticeDao.getNotice", id);
+    }
+
+
+    public void updateBoardCnt(int id) {
+        System.out.println("NoticeDao의 updateBoardCnt 메소드 실행");
+
+        mybatis.update("NoticeDao.updateBoardCnt", id);
+
+        System.out.println("NoticeDao의 updateBoardCnt 메소드 실행 종료");
     }
 }

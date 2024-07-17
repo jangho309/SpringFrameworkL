@@ -6,6 +6,7 @@ import com.bit.springboard.service.BoardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -28,12 +29,13 @@ public class FreeBoardServiceImpl implements BoardService {
 
     @Override
     public void modify(BoardDto boardDto) {
+        boardDto.setModdate(LocalDateTime.now());
         freeBoardDao.modify(boardDto);
     }
 
     @Override
-    public void delete(int id) {
-        freeBoardDao.delete(id);
+    public void delete(BoardDto boardDto) {
+        freeBoardDao.delete(boardDto);
     }
 
     @Override
@@ -45,4 +47,10 @@ public class FreeBoardServiceImpl implements BoardService {
     public BoardDto getBoard(int id) {
         return freeBoardDao.getBoard(id);
     }
+
+    @Override
+    public void updateBoardCnt(int id) {
+        freeBoardDao.updateBoardCnt(id);
+    }
+
 }

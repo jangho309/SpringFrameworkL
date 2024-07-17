@@ -9,9 +9,11 @@ public interface BoardService {
 
     void modify(BoardDto boardDto);
 
-    void delete(int id);
+    void delete(BoardDto boardDto);
 
     List<BoardDto> getBoardList();
 
     BoardDto getBoard(int id);
+
+    void updateBoardCnt(int id);
 }

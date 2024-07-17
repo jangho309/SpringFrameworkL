@@ -12,7 +12,11 @@
         ) VALUES(
             #{title},
             #{content},
-            #{WRITER_ID}
+            (
+                SELECT M.ID
+                  FROM MEMBER M
+                 WHERE M.NICKNAME = #{nickname}
+            )
         )
     </insert>
 
@@ -58,4 +62,10 @@
               ON F.WRITER_ID = M.ID
             WHERE F.ID = #{id}
     </select>
+
+    <update id="updateBoardCnt" parameterType="int">
+        UPDATE FREEBOARD
+           SET CNT = CNT + 1
+         WHERE ID = #{id}
+    </update>
 </mapper>
