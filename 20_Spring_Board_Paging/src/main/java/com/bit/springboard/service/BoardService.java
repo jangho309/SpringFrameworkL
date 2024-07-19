@@ -1,7 +1,7 @@
 package com.bit.springboard.service;
 
 import com.bit.springboard.dto.BoardDto;
-import com.bit.springboard.dto.Creteria;
+import com.bit.springboard.dto.Criteria;
 
 import java.util.List;
 import java.util.Map;
@@ -11,13 +11,13 @@ public interface BoardService {
 
     void modify(BoardDto boardDto);
 
-    void delete(BoardDto boardDto);
+    void delete(int id);
 
-    List<BoardDto> getBoardList(Map<String, String> searchMap, Creteria cri);
+    List<BoardDto> getBoardList(Map<String, String> searchMap, Criteria cri);
 
     BoardDto getBoard(int id);
 
-    void updateBoardCnt(int id);
+    void updateCnt(int id);
 
-    public int getBoardTotalCnt(Map<String, String> searchMap);
+    int getBoardTotalCnt(Map<String, String> searchMap);
 }

@@ -33,16 +33,16 @@ public class NoticeDao {
         System.out.println("NoticeDao의 modify 메소드 실행 종료");
     }
 
-    public List<BoardDto> getNoticeList(Map<String, String> map) {
+    public List<BoardDto> getNoticeList(Map<String, Object> paramMap) {
         System.out.println("NoticeDao의 getNoticeList 메소드 실행");
 
-        return mybatis.selectList("NoticeDao.getNoticeList", map);
+        return mybatis.selectList("NoticeDao.getNoticeList", paramMap);
     }
     
-    public void delete(BoardDto boardDto) {
+    public void delete(int id) {
         System.out.println("NoticeDao의 delete 메소드 실행");
 
-        mybatis.delete("NoticeDao.delete", boardDto);
+        mybatis.delete("NoticeDao.delete", id);
 
         System.out.println("NoticeDao의 delete 메소드 실행 종료");
     }
@@ -53,12 +53,11 @@ public class NoticeDao {
         return mybatis.selectOne("NoticeDao.getNotice", id);
     }
 
+    public void updateCnt(int id) {
+        mybatis.update("NoticeDao.updateCnt", id);
+    }
 
-    public void updateBoardCnt(int id) {
-        System.out.println("NoticeDao의 updateBoardCnt 메소드 실행");
-
-        mybatis.update("NoticeDao.updateBoardCnt", id);
-
-        System.out.println("NoticeDao의 updateBoardCnt 메소드 실행 종료");
+    public int getBoardTotalCnt(Map<String, String> searchMap) {
+        return mybatis.selectOne("NoticeDao.getBoardTotalCnt", searchMap);
     }
 }

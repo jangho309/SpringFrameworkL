@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="c" uri="jakarta.tags.core"%>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -41,7 +41,7 @@
                         </c:when>
                         <c:otherwise>
                             <li class="nav-item">
-                               <a class="nav-link">${loginMember.nickname}</a>
+                                <a class="nav-link">${loginMember.nickname}</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link" href="/member/logout.do">로그아웃</a>

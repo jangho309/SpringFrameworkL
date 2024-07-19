@@ -54,7 +54,7 @@ public class MemberController {
     }
 
     @PostMapping("/login.do")
-    public String login(MemberDto memberDto, Model model, HttpSession session){
+    public String login(MemberDto memberDto, Model model, HttpSession session) {
         try {
             MemberDto loginMember = memberService.login(memberDto);
 
@@ -63,17 +63,30 @@ public class MemberController {
             session.setAttribute("loginMember", loginMember);
 
             return "redirect:/";
-        } catch(Exception e){
+        } catch (Exception e) {
             model.addAttribute("loginFailMsg", e.getMessage());
             return "member/login";
         }
     }
 
     @GetMapping("/logout.do")
-    public String logout(HttpSession session){
+    public String logout(HttpSession session) {
         // 세션에 있는 내용 모두 초기화
         session.invalidate();
 
         return "redirect:/member/login.do";
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -78,10 +78,10 @@ public class FreeBoardDao {
         return boardDtoList;
     }
 
-    public void delete(BoardDto boardDto) {
+    public void delete(int id) {
         System.out.println("FreeBoardDao의 delete 메소드 실행");
 
-        mybatis.delete("FreeBoardDao.delete", boardDto.getId());
+        mybatis.delete("FreeBoardDao.delete", id);
 
         System.out.println("FreeBoardDao의 delete 메소드 실행 종료");
     }
@@ -98,12 +98,8 @@ public class FreeBoardDao {
         return boardDto;
     }
 
-    public void updateBoardCnt(int id){
-        System.out.println("FreeBoardDao의 updateBoardCnt 메소드 실행");
-
-        mybatis.update("FreeBoardDao.updateBoardCnt", id);
-
-        System.out.println("FreeBoardDao의 updateBoardCnt 메소드 실행 종료");
+    public void updateCnt(int id) {
+        mybatis.update("FreeBoardDao.updateCnt", id);
     }
 
     public int getBoardTotalCnt(Map<String, String> searchMap) {

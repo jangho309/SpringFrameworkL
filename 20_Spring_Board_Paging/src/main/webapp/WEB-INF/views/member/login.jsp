@@ -20,7 +20,7 @@
                 <h4>로그인</h4>
             </div>
             <div class="container mt-4 mb-5 w-25">
-                <form id="loginForm" action="/member/login.do" method="post">
+                <form id="login-form" action="/member/login.do" method="post">
                     <div class="form-group">
                         <label for="username">아이디</label>
                         <input type="text" class="form-control" id="username" name="username" required>
@@ -40,12 +40,12 @@
     </div>
     <script>
         $(() => {
-           // model, session, request에 담겨있는 데이터 javascript에서 꺼내서 사용하기
+            // model, session, request에 담겨있는 데이터 javascript에서 꺼내서 사용하기
             const loginFailMsg = '${loginFailMsg}';
 
-            if(loginFailMsg === 'idNotExist'){
+            if(loginFailMsg === 'idNotExist') {
                 alert("존재하지 않는 아이디입니다.");
-            } else if(loginFailMsg === 'wrongPassword'){
+            } else if(loginFailMsg === 'wrongPassword') {
                 alert("잘못된 비밀번호입니다.");
             }
         });

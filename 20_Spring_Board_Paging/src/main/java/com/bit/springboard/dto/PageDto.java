@@ -10,24 +10,24 @@ public class PageDto {
     // 총 게시글의 개수
     private int total;
     // Creteria 객체
-    private Creteria cri;
+    private Criteria cri;
 
-    public PageDto(Creteria cri, int total) {
+    public PageDto(Criteria cri, int total) {
         this.cri = cri;
         this.total = total;
 
         // 끝 페이지 계산
-        this.endPage = (int) (Math.ceil(cri.getPageNum() / 10.0)) * 10;
+        this.endPage = (int)(Math.ceil(cri.getPageNum() / 10.0)) * 10;
 
         // 시작 페이지 계산
-        this.startPage = (int) this.endPage - 9;
+        this.startPage = this.endPage - 9;
 
         // 실제 마지막 게시글이 있는 페이지 계산
-        int realEndPage = (int) (Math.ceil((total / 1.0) / cri.getAmount()));
+        int realEndPage = (int)(Math.ceil((total / 1.0) / cri.getAmount()));
 
-        // endPate가 realEndPage보다 커지면
+        // endPage가 realEndPage보다 커지면
         // endPage에 realEndPage를 주입
-        if(endPage > realEndPage){
+        if(endPage > realEndPage) {
             this.endPage = realEndPage;
         }
 
@@ -76,17 +76,17 @@ public class PageDto {
         this.total = total;
     }
 
-    public Creteria getCri() {
+    public Criteria getCri() {
         return cri;
     }
 
-    public void setCri(Creteria cri) {
+    public void setCri(Criteria cri) {
         this.cri = cri;
     }
 
     @Override
     public String toString() {
-        return "pageDto{" +
+        return "PageDto{" +
                 "startPage=" + startPage +
                 ", endPage=" + endPage +
                 ", prev=" + prev +

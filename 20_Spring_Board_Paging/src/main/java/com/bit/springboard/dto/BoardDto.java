@@ -9,10 +9,7 @@ public class BoardDto {
     private String content;
     private int WRITER_ID;
     private String nickname;
-    /*
-     *   'yyyy-MM-ddTHH:mm:ss' => 이 형태의 값이 넘어와야 된다.
-     *   input태그에서 name 속성을 없애면 데이터가 넘어가지 않는다. name, value -> key, value 형식으로 매핑
-     * */
+    // 'yyyy-MM-ddTHH:mm:ss' => 이 형태의 값이 넘어와야 된다.
     private LocalDateTime regdate;
     private LocalDateTime moddate;
     private int cnt;

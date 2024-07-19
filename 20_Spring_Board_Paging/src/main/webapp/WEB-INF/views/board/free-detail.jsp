@@ -6,7 +6,7 @@
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
-<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"%>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <html>
 <head>
@@ -38,14 +38,13 @@
                     </div>
                     <div class="form-group mt-3">
                         <label for="regdate">등록일</label>
-
-                        <input type="text" class="form-control" id="regdate"
-                               value='<javatime:format value="${freeBoard.regdate}" pattern="yyyy-MM-dd"/>' readonly required>
+                        <input type="text" class="form-control" id="regdate" name="regdate"
+                               value="<javatime:format value="${freeBoard.regdate}" pattern="yyyy-MM-dd"/>" readonly required>
                     </div>
                     <div class="form-group mt-3">
                         <label for="moddate">수정일</label>
-                        <input type="text" class="form-control" id="moddate"
-                               value='<javatime:format value="${freeBoard.moddate}" pattern="yyyy-MM-dd"/>' readonly required>
+                        <input type="text" class="form-control" id="moddate" name="moddate"
+                               value="<javatime:format value="${freeBoard.moddate}" pattern="yyyy-MM-dd"/>" readonly required>
                     </div>
                     <div class="form-group mt-3">
                         <label for="cnt">조회수</label>
@@ -65,17 +64,12 @@
                             </div>
                         </div>
                     </div>
-                    <c:choose>
-                        <c:when test="${loginMember ne null and loginMember.id eq freeBoard.WRITER_ID}">
-                            <div class="container mt-3 mb-5 w-50 text-center">
-                                <button type="submit" id="btn-update" class="btn btn-outline-secondary">수정</button>
-                                <button type="button" id="btn-delete" class="btn btn-outline-secondary ml-2" onclick="location.href='/board/delete.do?id=${freeBoard.id}&type=free'">삭제</button>
-                            </div>
-                        </c:when>
-                        <c:otherwise>
-
-                        </c:otherwise>
-                    </c:choose>
+                    <c:if test="${loginMember ne null and loginMember.id eq freeBoard.WRITER_ID}">
+                        <div class="container mt-3 mb-5 w-50 text-center">
+                            <button type="submit" id="btn-update" class="btn btn-outline-secondary">수정</button>
+                            <button type="button" id="btn-delete" class="btn btn-outline-secondary ml-2" onclick="location.href='/board/delete.do?id=${freeBoard.id}&type=free'">삭제</button>
+                        </div>
+                    </c:if>
                 </form>
             </div>
         </main>
@@ -85,10 +79,10 @@
     <script>
         $(() => {
             $("#modify-form").on("submit", (e) => {
-               $("#regdate").val(`\${\$("#regdate").val()}T00:00:00`);
-               $("#moddate").val(`\${\$("#moddate").val()}T00:00:00`);
+                $("#regdate").val(`\${\$("#regdate").val()}T00:00:00`);
+                $("#moddate").val(`\${\$("#moddate").val()}T00:00:00`);
             });
-        })
+        });
     </script>
 </body>
 </html>

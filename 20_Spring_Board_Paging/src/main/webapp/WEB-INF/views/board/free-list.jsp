@@ -8,7 +8,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <%--<%@ taglib prefix="fmt" uri="jakarta.tags.fmt" %>--%>
-<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time"%>
+<%@ taglib prefix="javatime" uri="http://sargue.net/jsptags/time" %>
 <html>
 <head>
 
@@ -29,31 +29,27 @@
                         <div class="col-3">
                             <select class="form-select" name="searchCondition">
                                 <option value="all"
-                                    <c:if test="${searchMap == null || searchMap.searchCondition == 'all'}">
-                                        selected
-                                    </c:if>
-                                >전체</option>
+                                        <c:if test="${searchMap == null || searchMap.searchCondition == 'all'}">
+                                            selected
+                                        </c:if>>전체</option>
                                 <option value="title"
-                                    <c:if test="${searchMap.searchCondition == 'title'}">
-                                        selected
-                                    </c:if>
-                                >제목</option>
+                                        <c:if test="${searchMap.searchCondition == 'title'}">
+                                            selected
+                                        </c:if>>제목</option>
                                 <option value="content"
-                                    <c:if test="${searchMap.searchCondition == 'content'}">
-                                        selected
-                                    </c:if>
-                                >내용</option>
+                                        <c:if test="${searchMap.searchCondition == 'content'}">
+                                            selected
+                                        </c:if>>내용</option>
                                 <option value="writer"
-                                    <c:if test="${searchMap.searchCondition == 'writer'}">
-                                        selected
-                                    </c:if>
-                                >작성자</option>
+                                        <c:if test="${searchMap.searchCondition == 'writer'}">
+                                            selected
+                                        </c:if>>작성자</option>
                             </select>
                         </div>
                         <div class="col-9">
                             <div class="row">
                                 <div class="col-11">
-                                    <input type="text" class="form-control w-100" name="searchKeyword" value="${searchMap.searchKeyword}"/>
+                                    <input type="text" class="form-control w-100" name="searchKeyword" value="${searchMap.searchKeyword}">
                                 </div>
                                 <div class="col-1 d-flex align-items-center">
                                     <i class="bi bi-search" id="search-icon"></i>
@@ -76,28 +72,28 @@
                         </tr>
                     </thead>
                     <tbody class="table-group-divider">
-                    <c:forEach items="${freeBoardList}" var="freeBoard">
-                        <tr class="board-tr" onclick="location.href='/board/update-cnt.do?id=${freeBoard.id}&type=free'">
-                            <td>${freeBoard.id}</td>
-                            <td>${freeBoard.title}</td>
-                            <td>${freeBoard.nickname}</td>
-                            <td>
-                                <javatime:format value="${freeBoard.regdate}" pattern="yyyy-MM-dd"/>
-                            </td>
-                            <td>${freeBoard.cnt}</td>
-                        </tr>
-                    </c:forEach>
+                        <c:forEach items="${freeBoardList}" var="freeBoard">
+                            <tr class="board-tr" onclick="location.href='/board/update-cnt.do?id=${freeBoard.id}&type=free'">
+                                <td>${freeBoard.id}</td>
+                                <td>${freeBoard.title}</td>
+                                <td>${freeBoard.nickname}</td>
+                                <td>
+                                    <javatime:format value="${freeBoard.regdate}" pattern="yyyy-MM-dd"/>
+                                </td>
+                                <td>${freeBoard.cnt}</td>
+                            </tr>
+                        </c:forEach>
                     </tbody>
                 </table>
             </div>
             <nav aria-label="Page navigation">
                 <ul class="pagination justify-content-center">
                     <c:if test="${page.prev}">
-                    <li class="page-item">
-                        <a class="page-link link-secondary" aria-label="Previous" href="${page.cri.pageNum - 1}">
-                            &laquo;
-                        </a>
-                    </li>
+                        <li class="page-item">
+                            <a class="page-link link-secondary" aria-label="Previous" href="${page.cri.pageNum - 1}">
+                                &laquo;
+                            </a>
+                        </li>
                     </c:if>
 
                     <c:forEach begin="${page.startPage}"
@@ -107,6 +103,7 @@
                             <a class="page-link link-secondary" href="${number}">${number}</a>
                         </li>
                     </c:forEach>
+
                     <c:if test="${page.next}">
                         <li class="page-item">
                             <a class="page-link link-secondary" aria-label="Next" href="${page.cri.pageNum + 1}">
@@ -129,19 +126,26 @@
     <script>
         $(() => {
             $("#search-icon").on("click", (e) => {
+                $("input[name='pageNum']").val(1);
                 $("#search-form").submit();
-            })
+            });
+
+            $("input[name='searchKeyword']").on("keypress", (e) => {
+                if(e.key === 'Enter') {
+                    $("input[name='pageNum']").val(1);
+                }
+            });
 
             $(".pagination a").on("click", (e) => {
-               e.preventDefault();
+                e.preventDefault();
 
-               console.log($(e.target).attr("href"));
+                // console.log($(e.target).attr("href"));
 
-               $("input[name='pageNum']").val($(e.target).attr("href"));
+                $("input[name='pageNum']").val($(e.target).attr("href"));
 
-               $("#search-form").submit();
+                $("#search-form").submit();
             });
-        })
+        });
     </script>
 </body>
 </html>

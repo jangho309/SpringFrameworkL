@@ -47,7 +47,7 @@ public class MemberServiceImpl implements MemberService {
         // 대부분 json 형태의 String을 리턴하여 사용한다.
 
         // Java에서 Json 데이터 형태로 만드는 방식1 - JsonView
-        // Java에서 Json 데이터 형태로 만드는 방식2 - ObjectMapper
+        // Java에서 Json 데이터 형태로 만드는 방식1 - ObjectMapper
         // ObjectMapper 객체를 이용한 json 형태의 데이터 만들기
         ObjectMapper objectMapper = new ObjectMapper();
 
@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
         // Map을 사용해서 키와 밸류로 매핑되어 있는 데이터 형태로 만들어준다.
         Map<String, String> jsonMap = new HashMap<>();
 
-        if(usernameCheck == 0){
+        if(usernameCheck == 0) {
             jsonMap.put("usernameCheckMsg", "usernameOk");
         } else {
             jsonMap.put("usernameCheckMsg", "usernameFail");
@@ -64,10 +64,10 @@ public class MemberServiceImpl implements MemberService {
         String jsonString = "";
 
         try {
-            // writerWithDefaultPrettyPrinter() : 들여쓰기랑 엔터값이 포함하여 시인성이 높은 형태로 데이터를 써주는 writer
+            // writerWithDefaultPrettyPrinter(): 들여쓰기랑 엔터값이 포함하여 시인성이 높은 형태로 데이터를 써주는 writer
             jsonString = objectMapper.writerWithDefaultPrettyPrinter()
                                      .writeValueAsString(jsonMap);
-        } catch(JsonProcessingException je) {
+        } catch (JsonProcessingException je) {
             System.out.println(je.getMessage());
         }
 
@@ -80,12 +80,13 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public String nicknameCheck(String nickname) {
-        int nicknameChk = memberDao.nicknameCheck(nickname);
+        int nicknameCheck = memberDao.nicknameCheck(nickname);
 
         ObjectMapper objectMapper = new ObjectMapper();
+
         Map<String, String> jsonMap = new HashMap<>();
 
-        if(nicknameChk == 0){
+        if(nicknameCheck == 0) {
             jsonMap.put("nicknameCheckMsg", "nicknameOk");
         } else {
             jsonMap.put("nicknameCheckMsg", "nicknameFail");
@@ -94,9 +95,8 @@ public class MemberServiceImpl implements MemberService {
         String jsonString = "";
 
         try {
-            jsonString = objectMapper.writerWithDefaultPrettyPrinter()
-                                     .writeValueAsString(jsonMap);
-        } catch(JsonProcessingException je){
+            jsonString = objectMapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonMap);
+        } catch (JsonProcessingException je) {
             System.out.println(je.getMessage());
         }
 
@@ -117,6 +117,4 @@ public class MemberServiceImpl implements MemberService {
 
         return loginMember;
     }
-
-
 }

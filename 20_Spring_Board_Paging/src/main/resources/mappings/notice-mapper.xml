@@ -13,8 +13,8 @@
             #{content},
             (
                 SELECT M.ID
-                  FROM MEMBER M
-                 WHERE M.NICKNAME = #{nickname}
+                    FROM MEMBER M
+                    WHERE M.NICKNAME = #{nickname}
             )
         )
     </insert>
@@ -40,14 +40,15 @@
             FROM NOTICE N
             JOIN MEMBER M
               ON N.WRITER_ID = M.ID
-         WHERE 1=1
-        <if test="searchKeyword != null and searchKeyword != ''">
-           AND (
-               N.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
-               OR N.CONTENT LIKE CONCAT('%', #{searchKeyword}, '%')
-               OR M.NICKNAME LIKE CONCAT('%', #{searchKeyword}, '%')
-           )
+            WHERE 1=1
+        <if test="search.searchKeyword != null and search.searchKeyword != ''">
+            AND (
+                N.TITLE LIKE CONCAT('%', #{search.searchKeyword}, '%')
+                OR N.CONTENT LIKE CONCAT('%', #{search.searchKeyword}, '%')
+                OR M.NICKNAME LIKE CONCAT('%', #{search.searchKeyword}, '%')
+            )
         </if>
+        LIMIT #{cri.amount} OFFSET #{cri.startNum}
     </select>
 
     <delete id="delete" parameterType="int">
@@ -70,9 +71,41 @@
             WHERE N.ID = #{id}
     </select>
 
-    <update id="updateBoardCnt" parameterType="int">
+    <update id="updateCnt" parameterType="int">
         UPDATE NOTICE
-        SET CNT = CNT + 1
-        WHERE ID = #{id}
+            SET
+                CNT = CNT + 1
+            WHERE ID = #{id}
     </update>
+
+    <select id="getBoardTotalCnt" parameterType="map" resultType="int">
+        SELECT COUNT(*)
+            FROM NOTICE N
+            JOIN MEMBER M
+              ON N.WRITER_ID = M.ID
+            WHERE 1=1
+            <if test="searchKeyword != null and searchKeyword != ''">
+                AND (
+                    N.TITLE LIKE CONCAT('%', #{searchKeyword}, '%')
+                    OR N.CONTENT LIKE CONCAT('%', #{searchKeyword}, '%')
+                    OR M.NICKNAME LIKE CONCAT('%', #{searchKeyword}, '%')
+                )
+            </if>
+    </select>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 </mapper>
