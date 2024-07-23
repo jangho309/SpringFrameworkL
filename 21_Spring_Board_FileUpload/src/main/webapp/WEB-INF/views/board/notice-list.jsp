@@ -20,6 +20,25 @@
     <main>
         <div class="container mt-5 w-75">
             <h4>공지사항</h4>
+            <div class="row d-flex justify-content-center">
+                <div class="col-6">
+                    <div class="row">
+                        <div class="col-11">
+                            <input type="text" class="form-control w-100" name="searchKeyword" value="${searchMap.searchKeyword}">
+                        </div>
+                        <div class="col-1 d-flex align-items-center">
+                            <i class="bi bi-search" id="search-icon"></i>
+                            <button type="submit" id="btnSearch">검색</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <c:if test="${loginMember ne null and loginMember.role eq 'ADMIN'}">
+                <%--        <c:if test="${loginMember != null && loginMember.role == 'ADMIN'}">    --%>
+                <div class="container mt-3 mb-5 w-50 d-flex justify-content-end">
+                    <button type="button" class="btn btn-outline-secondary" onclick="location.href='/board/post.do'">글 등록</button>
+                </div>
+            </c:if>
         </div>
         <div class="container mt-3 mb-5 w-75 card-wrapper">
             <c:forEach items="${noticeList}" var="notice">
@@ -53,28 +72,10 @@
                 <input type="hidden" name="pageNum" value="${page.cri.pageNum}">
                 <input type="hidden" name="amount" value="${page.cri.amount}">
                 <input type="hidden" name="endPage" value="${page.endPage}">
-                <div class="row d-flex justify-content-center">
-                    <div class="col-6">
-                        <div class="row">
-                            <div class="col-11">
-                                <input type="text" class="form-control w-100" name="searchKeyword" value="${searchMap.searchKeyword}">
-                            </div>
-                            <div class="col-1 d-flex align-items-center">
-                                <i class="bi bi-search" id="search-icon"></i>
-                                <button type="submit" id="btnSearch">검색</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+
             </form>
         </div>
 
-        <c:if test="${loginMember ne null and loginMember.role eq 'ADMIN'}">
-            <%--        <c:if test="${loginMember != null && loginMember.role == 'ADMIN'}">    --%>
-            <div class="container mt-3 mb-5 w-50 d-flex justify-content-end">
-                <button type="button" class="btn btn-outline-secondary" onclick="location.href='/board/post.do'">글 등록</button>
-            </div>
-        </c:if>
     </main>
 
     <jsp:include page="${pageContext.request.contextPath}/footer.jsp"></jsp:include>

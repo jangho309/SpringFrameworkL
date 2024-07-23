@@ -21,10 +21,9 @@
                 <h4>자유게시글 상세</h4>
             </div>
             <div class="container mt-3 w-50">
-                <form id="modify-form" action="/board/modify.do" method="post" enctype="multipart/form-data">
+                <form id="modify-form" action="/board/modify.do" method="post">
                     <input type="hidden" name="id" value="${freeBoard.id}">
                     <input type="hidden" name="type" value="free">
-                    <input type="hidden" name="originFiles" id="originFiles">
                     <div class="form-group">
                         <label for="title">제목</label>
                         <input type="text" class="form-control" id="title" name="title" value="${freeBoard.title}" required>
@@ -68,7 +67,7 @@
                                         <input type="hidden" id="filename${status.index}" value="${file.filename}">
                                         <!--밑에 표시된 파일을 클릭했을 때 파일 선택창이 뜨도록 input type="file" 하나 생성-->
                                         <input type="file" id="changeFile${file.id}" name="changeFile${file.id}" style="display: none;"
-                                               onchange="changeFile(${file.id}, event)">
+                                               onchange="changFile(${file.id}, event)">
                                         <c:if test="${status.last}">
                                             <input type="hidden" id="filecnt" name="filecnt" value="${status.count}">
                                         </c:if>
@@ -117,7 +116,7 @@
         // 추가된 파일들을 담아줄 배열
         const uploadFiles = [];
 
-        // 기존에 업로드되어 있는 파일들을 담아줄 배열
+        // 기존에 업로도되어 있는 파일들을 담아줄 배열
         // 게시글번호, 파일번호, 파일명을 객체 형태로 담아준다.
         const originFiles = [];
 
@@ -131,7 +130,7 @@
             });
 
             // 업로드되어 있던 파일들을 originFiles 배열에 담기
-            for(let i = 0; i < $("#filecnt").val(); i++){
+            for(let i = 0; i < $("#filecnt").val(); i++) {
                 const originFileObj = {
                     board_id: $("input[name='id']").val(),
                     id: $("#fileId" + i).val(),
@@ -149,44 +148,19 @@
                 // 변수로 받아온 파일들 배열로 변환
                 const fileArr = Array.prototype.slice.call(files);
 
-                for(file of fileArr){
+                for(file of fileArr) {
                     // 미리보기 메소드 호출
                     imageLoader(file);
                 }
             });
-
-            // modify-form이 서브밋될 때
-            // uploadFiles 배열에 담겨있는 파일들을 input name="uploadFiles"에 담기
-            // changeFiles 배열에 담겨있는 파일들을 input name="changeFiles"에 담기
-            // originFiles 배열에 담겨있는 객체들을 문자열로 변환하여 input name="originFiles"에 담기
-            $("#modify-form").on("submit", (e) => {
-                let dataTransfer1 = new DataTransfer();
-                let dataTransfer2 = new DataTransfer();
-
-                for(i in uploadFiles){
-                    const file = uploadFiles[i];
-                    dataTransfer1.items.add(file);
-                }
-
-                $("#uploadFiles")[0].files = dataTransfer1.files;
-
-                for(i in changeFiles){
-                    const file = changeFiles[i];
-                    dataTransfer2.items.add(file);
-                }
-
-                $("#changeFiles")[0].files = dataTransfer2.files;
-
-                $("#originFiles").val(JSON.stringify(originFiles));
-            });
         });
 
-        // 업로드되어 있어서 표출되어 있는 파일들을 클릭했을 때 실행될 메소드
+        // 업로도되어 있어서 표출되어 있는 파일들을 클릭했을 때 실행될 메소드
         const fileClick = (fileId) => {
             $("#changeFile" + fileId).click();
         }
 
-        const changeFile = (fileId, e) => {
+        const changFile = (fileId, e) => {
             const files = e.target.files;
 
             const fileArr = Array.prototype.slice.call(files);
@@ -211,8 +185,8 @@
             reader.readAsDataURL(fileArr[0]);
 
             // 기존에 originFiles 배열에 담겨있던 내용 변경
-            for(let i = 0; i < originFiles.length; i++){
-                if(fileId == originFiles[i].id){
+            for(let i = 0; i < originFiles.length; i++) {
+                if(fileId == originFiles[i].id) {
                     originFiles[i].filestatus = "U";
                     originFiles[i].newfilename = fileArr[0].name;
                 }
@@ -226,8 +200,8 @@
             const deleteFileId = element.getAttribute("deleteFile");
 
             // originFiles 배열에서 deleteFileId와 id가 같은 객체의 filestatus를 D로 변경
-            for(let i = 0; i < originFiles.length; i++){
-                if(deleteFileId == originFiles[i].id){
+            for(let i = 0; i < originFiles.length; i++) {
+                if(deleteFileId == originFiles[i].id) {
                     originFiles[i].filestatus = "D";
                 }
             }
@@ -236,6 +210,7 @@
             const parentDiv = element.parentNode;
             $(parentDiv).remove();
         }
+
         // 미리보기 처리하는 메소드
         // 미리보기될 파일은 서버나 데이터베이스에 저장된 상태가 아니기 때문에
         // 파일 자체를 Base64 인코딩 방식으로 문자열로 변환해서 이미지로 호출해야 된다.
@@ -335,6 +310,16 @@
 
             return div;
         }
+
+
+
+
+
+
+
+
+
+
     </script>
 </body>
 </html>

@@ -51,6 +51,7 @@
                 OR M.NICKNAME LIKE CONCAT('%', #{search.searchKeyword}, '%')
             )
         </if>
+        ORDER BY N.ID DESC
         LIMIT #{cri.amount} OFFSET #{cri.startNum}
     </select>
 
